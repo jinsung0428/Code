@@ -1,0 +1,116 @@
+package sec03.exam01;
+
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.URI;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
+
+public class WeatherApp {
+
+    // TODO: OpenWeather에서 발급받은 API 키로 교체하세요
+    private static final String API_KEY = "65a83b4432b43cd1672e48d321d51f98";
+    private static final String BASE_URL = "https://api.openweathermap.org/data/2.5/weather";
+
+    public static void main(String[] args) {
+    	try (Scanner sc = new Scanner(System.in)) {
+            System.out.println("=== 간단 날씨 조회 ===");
+            System.out.println("도시명을 입력하세요 (종료: exit) 예: Seoul, Busan, New York");
+            while (true) {
+                System.out.print("> ");
+                String city = sc.nextLine().trim();
+
+                if (city.equalsIgnoreCase("exit")) {
+                    System.out.println("종료합니다.");
+                    break;
+                }
+                if (city.isEmpty()) {
+                    System.out.println("도시명이 비어 있습니다. 다시 입력하세요.");
+                    continue;
+                }
+
+                try {
+                    String result = fetchWeather(city, "metric", "kr");
+                    System.out.println(result);
+                } catch (IOException e) {
+                    String msg = e.getMessage();
+                    if (msg != null && msg.contains("401")) {
+                        System.out.println("[에러] API Key 문제(401). 키를 확인하거나 잠시 후 다시 시도하세요.");
+                    } else if (msg != null && msg.contains("404")) {
+                        System.out.println("[에러] 도시를 찾을 수 없음(404). 영문 표기로 다시 시도하세요. 예: Seoul, New York");
+                    } else {
+                        System.out.println("[에러] 네트워크/요청 문제: " + msg);
+                    }
+                } catch (InterruptedException e) {
+                    System.out.println("[에러] 요청이 중단되었습니다.");
+                    Thread.currentThread().interrupt();
+                }
+            }
+        }
+    }
+
+    private static String fetchWeather(String city, String units, String lang) throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newHttpClient();
+
+        String q = URLEncoder.encode(city, StandardCharsets.UTF_8);
+        String url = String.format("%s?q=%s&appid=%s&units=%s&lang=%s",
+                BASE_URL, q, API_KEY, units, lang);
+
+        HttpRequest req = HttpRequest.newBuilder(URI.create(url)).GET().build();
+        HttpResponse<String> resp = client.send(req, HttpResponse.BodyHandlers.ofString());
+
+        if (resp.statusCode() / 100 != 2) {
+            throw new IOException("API 요청 실패: HTTP " + resp.statusCode() + " / " + resp.body());
+        }
+
+        String body = resp.body();
+
+        // ---- 매우 단순한 추출(빠르게 성공용). 필요 시 나중에 Gson으로 교체 ----
+        String name = extractString(body, "\"name\":\"", "\"");
+        String desc = extractString(body, "\"description\":\"", "\"");
+        String temp = extractNumber(body, "\"temp\":");
+        String feels = extractNumber(body, "\"feels_like\":");
+        String humidity = extractNumber(body, "\"humidity\":");
+        String wind = extractNumber(body, "\"speed\":"); // wind.speed
+
+        return String.format(
+                "도시: %s%n날씨: %s%n기온: %s°C (체감 %s°C)%n습도: %s%%%n바람: %s m/s",
+                safe(name), safe(desc), safe(temp), safe(feels), safe(humidity), safe(wind)
+        );
+    }
+
+    // 아래는 JSON에서 값 뽑기 위한 아주 단순한 보조 함수들
+    private static String extractString(String src, String prefix, String endQuote) {
+        int i = src.indexOf(prefix);
+        if (i < 0) return "";
+        i += prefix.length();
+        int j = src.indexOf(endQuote, i);
+        if (j < 0) return "";
+        return src.substring(i, j);
+    }
+
+    private static String extractNumber(String src, String key) {
+        int i = src.indexOf(key);
+        if (i < 0) return "";
+        i += key.length();
+        // 숫자/부호/소수점만 읽기
+        StringBuilder sb = new StringBuilder();
+        while (i < src.length()) {
+            char c = src.charAt(i);
+            if ((c >= '0' && c <= '9') || c == '.' || c == '-' ) {
+                sb.append(c);
+                i++;
+            } else {
+                break;
+            }
+        }
+        return sb.toString();
+    }
+
+    private static String safe(String s) {
+        return (s == null || s.isBlank()) ? "-" : s;
+    }
+}
