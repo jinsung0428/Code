@@ -1,0 +1,47 @@
+package sec03.exam01;
+import java.util.Scanner;
+import java.util.ArrayList;
+
+class WeatherApp {
+	String name;
+	int score;
+	
+	public WeatherApp (String name , int score  ) {
+
+	this.name = name;
+	this.score = score;
+	}
+public static void studentData (ArrayList<WeatherApp> students ) {	
+	
+	System.out.println("\n===== 학생 정보 =====");
+	for( WeatherApp s : students ) { 
+	System.out.println("학생 이름:" + s.name + "| 학생 점수:" + s.score );
+	}
+} 
+	public static void main(String[] args) {
+ 
+     Scanner sc = new Scanner(System.in); 
+    ArrayList <WeatherApp> students = new ArrayList<>();
+
+
+   System.out.println("학생수를 입력하세요:"); 
+int count = 0;
+ try  { count = sc.nextInt(); 
+        sc.nextLine(); 
+ } catch (Exception e){ System.out.println("오류가 발생했습니다.");
+ }
+ try { for(int i = 0 ; i < count ; i++ ) { 
+   System.out.println("학생의 이름을 입력하세요:");
+ String name = sc.nextLine();
+   System.out.println("학생의 점수를 입력하세요:") ;
+ int score = sc.nextInt();
+ sc.nextLine();
+ students.add( new WeatherApp (name , score) );
+ }
+} catch (Exception e) {
+	System.out.println("오류가 발생했습니다:");
+}
+ studentData(students); 
+}
+}
+// class 이름을 WeatherApp로 설정해서 나중에 클래스 이름을 Student로 바꿔야함.
