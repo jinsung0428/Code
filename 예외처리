@@ -1,0 +1,98 @@
+package sec03.exam01;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class WeatherApp {
+    String name;
+    int score;
+
+    public WeatherApp(String name, int score) {
+        this.name = name;
+        this.score = score;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<WeatherApp> students = new ArrayList<>();
+
+        int count = readPositiveInt(sc, "학생 수를 입력하세요: ");
+        for (int i = 0; i < count; i++) {
+            System.out.println("\n[" + (i + 1) + "번째 학생]");
+            String name  = readName(sc, "이름을 입력하세요(한글/영문, 공백 허용): ");
+            int score    = readScore(sc, "점수를 입력하세요(0~100): ");
+            students.add(new WeatherApp(name, score));
+        }
+
+        printStudents(students);
+    }
+
+    // --- 입력 검증 함수들 ---
+
+    // ① 학생 수: 0 이상 정수
+    private static int readPositiveInt(Scanner sc, String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String line = sc.nextLine().trim();
+            try {
+                int n = Integer.parseInt(line);
+                if (n < 0) {
+                    System.out.println("❌ 학생 수는 0 이상이어야 합니다.");
+                    continue;
+                }
+                return n;
+            } catch (NumberFormatException e) {
+                System.out.println("❌ 숫자만 입력하세요. 예: 3");
+            }
+        }
+    }
+
+    // ② 이름: 한글/영문/공백/하이픈만 허용, 숫자/특수문자 금지
+    private static String readName(Scanner sc, String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String name = sc.nextLine().trim();
+            if (name.isEmpty()) {
+                System.out.println("❌ 이름이 비어 있습니다.");
+                continue;
+            }
+            // 한글, 영문, 공백, 하이픈만 허용
+            if (!name.matches("[가-힣a-zA-Z\\- ]+")) {
+                System.out.println("❌ 이름에는 숫자나 특수문자를 넣을 수 없습니다. (허용: 한글/영문, 공백, -)");
+                continue;
+            }
+            return name;
+        }
+    }
+
+    // ③ 점수: 정수 & 0~100 범위
+    private static int readScore(Scanner sc, String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String line = sc.nextLine().trim();
+            int score;
+            try {
+                score = Integer.parseInt(line);
+            } catch (NumberFormatException e) {
+                System.out.println("❌ 점수에는 숫자만 입력하세요. 예: 87");
+                continue;
+            }
+            if (score < 0 || score > 100) {
+                System.out.println("❌ 점수 범위 오류: 0~100 사이의 값만 입력할 수 있습니다. (입력값: " + score + ")");
+                continue;
+            }
+            return score;
+        }
+    }
+
+    private static void printStudents(ArrayList<WeatherApp> students) {
+        System.out.println("\n===== 학생 정보 =====");
+        if (students.isEmpty()) {
+            System.out.println("등록된 학생이 없습니다.");
+            return;
+        }
+        for (WeatherApp s : students) {
+            System.out.println("학생 이름: " + s.name + " | 학생 점수: " + s.score);
+        }
+    }
+}
+//클래스 WeatherApp을 Studnet로 바꿔야함
