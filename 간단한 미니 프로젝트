@@ -1,0 +1,142 @@
+package sec03.exam01;
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class study {
+	
+static class Student {
+	String name;
+	int score;
+	
+  Student(String name , int score) {
+  this.name = name;
+   this.score = score;
+}
+}
+// 클래스
+
+public static void main(String[] args) {
+ Scanner sc = new Scanner(System.in); 
+ ArrayList <Student> students = new ArrayList <>();
+ boolean running = true;
+ while(running) {
+ System.out.println("\n=====학생 성적 관리=====");
+ System.out.println("1. 학생 등록");
+ System.out.println("2. 학생 목록 보기");
+ System.out.println("3. 평균 점수 보기");
+ System.out.println("4. 종료");
+ System.out.print("메뉴 선택: ");
+
+String input = sc.nextLine();
+ 
+ switch (input) { 
+ 
+ case "1" : { //학생등록
+	 String name = readName(sc , "학생 이름을 입력하세요:");
+     int score = readScore(sc , "학생 점수를 입력하세요:");
+ 
+ students.add(new Student (name , score ));
+ 
+ System.out.println("등록이 완료 되었습니다.");
+ break;
+ }
+ 
+ case "2" : {
+ 
+ printStudent(students);
+ break;
+ }
+ 
+ case "3": {
+ 
+ printAv(students);
+ break;
+ }
+
+ case "4" :{
+ System.out.println("프로그램을 종료합니다.");
+ running = false;
+ break;
+ }
+ default : System.out.println("잘못된 입력입니다. 1~4 중 선택하세요.");
+ 
+ }
+ }
+ sc.close();
+}
+ // 클래스 
+ 
+ 
+ private static String readName( Scanner sc , String prompt ) {
+ 
+ while(true) {
+	 System.out.println(prompt);
+	 String name = sc.nextLine().trim();
+ 
+ if(name.isEmpty()) {  
+	 System.out.println("이름을 입력해주세요.");
+     continue; 
+ }
+ if(!name.matches("[가-힣a-zA-Z\\- ]+")) {
+	 System.out.println(" 이름에는 숫자/특수문자 사용이 불가합니다.");
+	 continue;
+ }
+ return name;
+ }
+ }
+ 
+ private static int readScore( Scanner sc , String prompt ) {
+while (true) {
+	System.out.println(prompt);
+	 String line = sc.nextLine().trim();
+try {
+	 int n = Integer.parseInt(line);
+ if ( n < 0 || n > 100 ) {
+	 System.out.println("점수는 0~100 사이여야 합니다.");
+	 continue;
+ }
+ return n;
+ } catch (NumberFormatException e) {
+	 System.out.println("숫자만 입력할 수 있습니다.");
+ }
+ }
+}
+ private static void printStudent(ArrayList<Student> students) { 
+ 
+ System.out.println("\n-----[학생목록]----");
+ if (students.isEmpty()) {
+     System.out.println("등록된 학생이 없습니다.");
+     return;
+ }
+	int i = 1 ; 
+	 for(Student s : students) {
+	 System.out.println(i++ + ")" + s.name +"|"+ s.score + "점");
+	 }
+ }
+ private static void  printAv(ArrayList<Student> students) {	 
+	 if (students.isEmpty()) {
+	     System.out.println("등록된 학생이 없어 평균계산을 할 수 없습니다.");
+	 return;
+	 }
+	 int sum = 0;
+	 for (Student s : students ) sum += s.score;
+	 double avg = (double)sum / students.size(); 
+	 System.out.println("평균:" + avg );
+ }
+}
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
