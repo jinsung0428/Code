@@ -1,0 +1,164 @@
+package sec03.exam01;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import sec03.exam01.study.Student;
+
+public class Study2 {
+
+	static class Order { 
+	String item ;
+	int count;
+	long value;  
+	
+	Order( String item , int count , long value ) {
+	this.item = item;
+	this.count = count;
+	this.value = value;
+	}
+}
+	public static void main(String[] args) {
+ ArrayList <Order> orders = new ArrayList <>();
+ Scanner sc = new Scanner(System.in);
+	
+ boolean running = true;
+ while(running) {
+System.out.println("\n===== 메뉴 =====");
+System.out.println("1. 상품 등록");
+System.out.println("2. 상품 목록 확인");
+System.out.println("3. 가장 싼 상품 확인");
+System.out.println("4. 가장 비싼 상품 확인");
+System.out.println("5. 종료");
+System.out.print("메뉴 선택: ");	
+	
+	String input = sc.nextLine();
+	
+	switch (input) { 
+	case "1" : { 
+	String item = readItem( sc , "상품이름을 입력하세요:" ); 
+	int count = readCount( sc , "상품수량을 입력하세요:" ); 
+	long value = readValue( sc , "상품가격을 입력하세요:" ); 
+	
+	orders.add(new Order ( item, count , value ));
+	System.out.print("상품등록이 완료되었습니다!");	
+	break;
+	}
+	case "2" : { 
+           printItem(orders);
+           break;
+	}
+	case "3" : { 
+           printMin(orders);
+		   break;
+			}
+	
+	case "4" : { 
+        printMax(orders);
+		   break;
+			}
+	case "5" : { 
+        System.out.println("프로그램을 종료합니다.");
+		   running =  false;
+			break;
+	}
+	default : System.out.println("잘못된 입력입니다. 1~5 중 선택하세요.");
+	}
+ }
+ sc.close();
+	}
+// 클래스 부분	
+	private static String readItem (Scanner sc , String prompt) {
+		
+while (true) {	
+	System.out.println(prompt);
+	String item = sc.nextLine().trim();
+ if (item.isEmpty()) {
+	System.out.println("상품명을 입력해주세요..");
+	continue;
+}
+if(!item.matches("[가-힣a-zA-Z\\- ]+")) {
+	 System.out.println(" 상품명에는 숫자/특수문자 사용이 불가합니다.");
+	 continue;
+}
+return item;
+}	
+}	
+	private static int readCount( Scanner sc ,String prompt ) {
+		while (true) {
+			System.out.println(prompt);
+			 String line = sc.nextLine().trim();
+		try {
+			 int n = Integer.parseInt(line);
+		 if ( n < 0 ) {
+			 System.out.println("수량은 1부터 시작입니다.");
+			 continue;
+		 }
+		 return n;
+		 } catch (NumberFormatException e) {
+			 System.out.println("숫자만 입력할 수 있습니다.");
+		 }
+		 }
+	
+	}
+	private static long readValue( Scanner sc ,String prompt ) {
+		while (true) {
+			System.out.println(prompt);
+			String line = sc.nextLine().trim();
+		try {
+			 long n = Long.parseLong(line);
+		 if ( n < 0 || n > 10000000) {
+			 System.out.println("가격을 다시 한번 확인해주십시오");
+			 continue;
+		 }
+		 return n;
+		 } catch (NumberFormatException e) {
+			 System.out.println("숫자만 입력할 수 있습니다.");
+		 }
+		 }
+	}
+	
+	
+		private static void printItem (ArrayList<Order> orders ) {
+			System.out.println("\n===== 상품 목록 확인 =====");
+		if (orders.isEmpty()) {
+			     System.out.println("등록된 상품이 없습니다.");
+		return;
+		}	
+     int i = 1;
+		for(Order o : orders ) {	
+			System.out.println( i++ +") 상품명:"+ o.item + "| 수량:" + o.count + "| 가격:"+ o.value +"| 총가격:" + o.count*o.value );
+		}
+	}
+		private static void printMin (ArrayList<Order> orders ) {
+		if (orders.isEmpty()) {
+			     System.out.println("등록된 상품이 없습니다.");
+		return;
+		}	
+     long min = 10000000;
+	String minitem = "";	
+     for ( Order o : orders ) {
+		if ( min > o.value ) { 
+			min = o.value;
+		minitem = o.item;
+		}
+		}
+		System.out.println( "상품명:"+  minitem + "| 가격:" + min);
+		}
+		private static void printMax (ArrayList<Order> orders ) {
+			if (orders.isEmpty()) {
+				     System.out.println("등록된 상품이 없습니다.");
+			return;
+			}	
+	     long max = -1;
+		String maxitem = "";	
+	     for ( Order o : orders ) {
+			if ( max < o.value ) { 
+				max = o.value;
+			maxitem = o.item;
+			}
+			}
+			System.out.println( "상품명:"+  maxitem + "| 가격:" + max);
+			}
+}
+		
+		
