@@ -1,0 +1,416 @@
+package sec03.exam01;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Study2 {
+
+	static class User {
+	String name ;
+	String date;
+	String sex;
+	String phonenumber;
+	String address;
+	String id;
+	String pw;
+	
+	User(String name , String date , String sex ,String phonenumber , String address , String id , String pw ) {
+	this.name = name;
+	this.date = date;
+	this.sex = sex;
+	this.phonenumber = phonenumber;
+	this.address = address;
+	this.id = id;
+	this.pw = pw;
+	}
+	}
+	static class Order { 
+	String item ;
+	int count;
+	long value;  
+	
+	Order( String item , int count , long value ) {
+	this.item = item;
+	this.count = count;
+	this.value = value;
+	}
+}
+	public static void main(String[] args) {
+ ArrayList <Order> orders = new ArrayList <>();
+ ArrayList <User> users = new ArrayList <>();
+ Scanner sc = new Scanner(System.in);
+	
+ boolean running = true;
+ while(running) {
+System.out.println("\n===== 메뉴 =====");
+System.out.println("1. 상품 등록");
+System.out.println("2. 상품 목록 확인");
+System.out.println("3. 가장 싼 상품 확인");
+System.out.println("4. 가장 비싼 상품 확인");
+System.out.println("5. 회원가입:");
+System.out.println("6. 회원목록 확인:");
+System.out.print("7. 종료 ");	
+System.out.print("\n메뉴 선택: ");		
+	
+String input = sc.nextLine();
+	
+	switch (input) { 
+	case "1" : { 
+	String item = readItem( sc , "상품이름을 입력하세요:" ); 
+	int count = readCount( sc , "상품수량을 입력하세요:" ); 
+	long value = readValue( sc , "상품가격을 입력하세요:" ); 
+	
+	orders.add(new Order ( item, count , value ));
+	System.out.print("상품등록이 완료되었습니다!");	
+	break;
+	}
+	case "2" : { 
+           printItem(orders);
+           break;
+	}
+	case "3" : { 
+           printMin(orders);
+		   break;
+			}
+	
+	case "4" : { 
+        printMax(orders);
+		   break;
+			}
+	
+	case "5" : { 
+       String name = readName(sc , "이름을 입력하세요:");
+       String date = readDate(sc , "주민등록번호를 입력하세요:" , users);
+       String sex = readSex(sc, "성별을 입력하세요(남/여):");
+       String phonenumber = readPhonenumber (sc , "전화번호를 입력하세요(-제외):" , users);
+       String address = readAddress(sc, "주소를 입력하세요:");
+       String id = readId(sc , "사용하실 아이디를 입력하세요" , users);
+       String pw = readPw(sc , "사용하실 비밀번호를 입력하세요");
+	
+	users.add( new User (name , date , sex , phonenumber , address , id , pw ));
+	System.out.print("회원가입이 완료되었습니다!");	
+	break;
+	}
+	
+	case "6" : { 
+        printuserdata(users);
+	break;
+	
+	}
+	case "7" : { 
+		printuserdata(users);
+			break;
+	}
+	case "8" : { 
+        System.out.println("프로그램을 종료합니다.");
+		   running =  false;
+			break;
+	}
+	
+	default : System.out.println("잘못된 입력입니다. 1~7 중 선택하세요.");
+	}
+ }
+ sc.close();
+	}
+// 클래스 부분	
+	private static String readItem (Scanner sc , String prompt) {
+		
+while (true) {	
+	System.out.println(prompt);
+	String item = sc.nextLine().trim();
+ if (item.isEmpty()) {
+	System.out.println("상품명을 입력해주세요..");
+	continue;
+}
+if(!item.matches("[가-힣a-zA-Z\\- ]+")) {
+	 System.out.println(" 상품명에는 숫자/특수문자 사용이 불가합니다.");
+	 continue;
+}
+return item;
+}	
+}	
+	private static int readCount( Scanner sc ,String prompt ) {
+		while (true) {
+			System.out.println(prompt);
+			 String line = sc.nextLine().trim();
+		try {
+			 int n = Integer.parseInt(line);
+		 if ( n < 0 ) {
+			 System.out.println("수량은 1부터 시작입니다.");
+			 continue;
+		 }
+		 return n;
+		 } catch (NumberFormatException e) {
+			 System.out.println("숫자만 입력할 수 있습니다.");
+		 }
+		 }
+	
+	}
+	private static long readValue( Scanner sc ,String prompt ) {
+		while (true) {
+			System.out.println(prompt);
+			String line = sc.nextLine().trim();
+		try {
+			 long n = Long.parseLong(line);
+		 if ( n < 0 || n > 10000000) {
+			 System.out.println("가격을 다시 한번 확인해주십시오");
+			 continue;
+		 }
+		 return n;
+		 } catch (NumberFormatException e) {
+			 System.out.println("숫자만 입력할 수 있습니다.");
+		 }
+		 }
+	}
+	
+	
+		private static void printItem (ArrayList<Order> orders ) {
+			System.out.println("\n===== 상품 목록 확인 =====");
+		if (orders.isEmpty()) {
+			     System.out.println("등록된 상품이 없습니다.");
+		return;
+		}	
+     int i = 1;
+		for(Order o : orders ) {	
+			System.out.println( i++ +") 상품명:"+ o.item + "| 수량:" + o.count + "| 가격:"+ o.value +"| 총가격:" + o.count*o.value );
+		}
+	}
+		private static void printMin (ArrayList<Order> orders ) {
+		if (orders.isEmpty()) {
+			     System.out.println("등록된 상품이 없습니다.");
+		return;
+		}	
+     long min = 10000000;
+	String minitem = "";	
+     for ( Order o : orders ) {
+		if ( min > o.value ) { 
+			min = o.value;
+		minitem = o.item;
+		}
+		}
+		System.out.println( "상품명:"+  minitem + "| 가격:" + min);
+		}
+		private static void printMax (ArrayList<Order> orders ) {
+			if (orders.isEmpty()) {
+				     System.out.println("등록된 상품이 없습니다.");
+			return;
+			}	
+	     long max = -1;
+		String maxitem = "";	
+	     for ( Order o : orders ) {
+			if ( max < o.value ) { 
+				max = o.value;
+			maxitem = o.item;
+			}
+			}
+			System.out.println( "상품명:"+  maxitem + "| 가격:" + max);
+			}
+	
+// 회원가입 부분		
+	//이름입력부분	
+	private static String readName ( Scanner sc ,String prompt) {
+	
+	while (true) {
+		System.out.println(prompt);
+		String name = sc.nextLine().trim();
+		 if (name.isEmpty()) {
+				System.out.println("이름을 입력해주세요.");
+				continue;
+		 }
+		 if(!name.matches("[가-힣]+")) {
+			 System.out.println("이름을 다시한번 적어주세요.");
+			 continue;
+		}
+ return name;
+	}
+}	
+	// 주민등록번호 부분
+	
+	
+	private static boolean existsdate(ArrayList<User> users, String date) {
+	    for (User u : users) {
+	        if (date.equals(u.date)) return true;
+	    }
+	    return false;
+	}
+	
+	private static String readDate ( Scanner sc ,String prompt , ArrayList<User> users) {
+		
+		while (true) {
+			System.out.println(prompt);
+			String date  = sc.nextLine().trim();
+		
+			if (date.isEmpty()) {
+					System.out.println("주민등록번호를 입력해주세요.");
+					continue;
+			 }
+			if(!date.matches("[0-9]+")) {
+				 System.out.println("숫자만 입력할 수 있습니다.");
+				 continue;
+			}
+		    if (  date.length() != 13) {
+			     System.out.println("주민등록번호를 다시 적어주세요.");
+				 continue;
+			}
+		    if (existsdate(users , date)) {
+			      System.out.println("이미 등록 된 주민등록번호입니다.");
+			            continue;
+			}
+		    
+		    
+		    
+		    
+		    
+		    
+		    return date;
+		}
+	}
+		// 성별 부분
+		private static String readSex(Scanner sc ,String prompt) {
+			while (true) {
+				System.out.println(prompt);
+				String sex = sc.nextLine().trim();
+				 if (sex.isEmpty()) {
+						System.out.println("성별을 입력해주세요.");
+						continue;
+				 }
+				 if(!sex.equals("여") && !sex.equals("남") ) {
+					 System.out.println("남/여 중에 하나만 입력해주세요:");
+					 continue;
+				}
+				 return sex;
+			}
+		}
+		//전화번호 부분
+			
+		
+		
+		private static boolean existsPhonenumber(ArrayList<User> users, String phonenumber) {
+		    for (User u : users) {
+		        if (phonenumber.equals(u.phonenumber)) return true;
+		    }
+		    return false;
+		}
+		
+		private static String readPhonenumber (Scanner sc ,String prompt , ArrayList<User> users) {
+				while (true){
+					System.out.println(prompt);
+					String phonenumber  = sc.nextLine().trim();
+				
+					if (phonenumber.isEmpty()) {
+							System.out.println("전화번호를 입력해주세요.");
+							continue;
+					 }
+					if(!phonenumber.matches("[0-9]+")) {
+						 System.out.println("숫자만 입력할 수 있습니다.");
+						 continue;
+					}
+				   if (  phonenumber.length() != 11) {
+					   System.out.println("전화번호를 다시한번 확인해주세요.");
+						 continue;
+				   } 
+				 if (existsPhonenumber(users, phonenumber)) {
+					      System.out.println("이미 등록 된 전화번호입니다.");
+					            continue;
+					}
+				   
+					return phonenumber;
+				}
+				}
+			
+	// 주소 부분
+				private static String readAddress (Scanner sc ,String prompt) {
+					while (true) {
+						System.out.println(prompt);
+						String address = sc.nextLine().trim();
+						 if (address.isEmpty()) {
+								System.out.println("주소를 입력해주세요.");
+								continue;
+						 }
+						 if(!address.matches("[가-힣\\-0-9]+")) {
+							 System.out.println("주소를 다시 적어주세요.");
+							 continue;
+						}
+						 return address;
+					}
+				
+				}
+	
+					// 아이디 부분			
+				
+				private static boolean existsId(ArrayList<User> users, String id) {
+				    for (User u : users) {
+				        if (id.equals(u.id)) return true;
+				    }
+				    return false;
+				}
+				
+				private static String readId(Scanner sc ,String prompt , ArrayList<User> users) {
+					while (true) {
+						System.out.println(prompt);
+						String id = sc.nextLine().trim();
+						 if (id.isEmpty()) {
+								System.out.println("아이디를 입력해주세요.");
+								continue;
+						 }
+						 if(!id.matches("[a-zA-Z0-9]+")) {
+							 System.out.println("영어랑 숫자만 입력가능합니다.");
+							 continue;
+						 }
+						 if (existsId(users, id)) {
+					            System.out.println("이미 사용중인 아이디입니다.");
+					            continue;
+					        }
+		
+						 return id;
+					}
+				}
+					// 비밀번호 부분
+					private static String readPw(Scanner sc ,String prompt) {
+						while (true) {
+							System.out.println(prompt);
+							String pw = sc.nextLine().trim();
+							
+						  if (pw.isEmpty()) {
+									System.out.println("비밀번호를 입력해주세요.");
+									continue;
+									}
+						  if (pw.length() < 8 || pw.length() > 16) {
+							    System.out.println("비밀번호는 8~16자여야 합니다.");	 
+						  
+						         continue;
+						   }
+						  
+						  if(!pw.matches("[a-zA-Z0-9~!@#$%^&*]+")) {
+								 System.out.println("영어랑 숫자만 입력가능합니다.");
+								 continue;
+							}
+							 System.out.println("비밀번호를 다시 한번 적어주세요:");
+							 String pwc = sc.nextLine().trim();
+						
+							 if(!pw.equals(pwc)) {
+							 System.out.println("비밀번호가 다릅니다. 다시 확인해주세요.");
+							 continue;
+								}							
+	                         return pw;
+						}
+						
+					}
+	// 메뉴 출력부분
+			   private static void printuserdata ( ArrayList<User> users ) {
+					System.out.println("\n===== 회원 목록 확인 =====");
+					if (users.isEmpty()) {
+						     System.out.println("등록된 회원이 없습니다.");
+					return;	
+					}	
+			   
+					for(User u : users ) {	
+						System.out.println( "이름:"+ u.name + "| 주민등록번호:" + u.date + "| 성별:"+ u.sex +"| 전화번호:" + u.phonenumber +"| 주소:" + u.address + "| 아이디:" + u.id +"| 비밀번호:"+ u.pw);
+					
+					}
+				}
+}
+	
+	
+	
+	
+	
