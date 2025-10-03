@@ -1,0 +1,206 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+pubilc class Study {
+
+static class User {
+String name;
+String date;
+Stirng sex;
+String phonenumber;
+String email;
+String id;
+Stirng pw;
+
+User (String name , String date , String sex , String phonenumber , String email , String id , String pw) {
+this.name = name;
+this.date = date;
+this.sex = sex;
+this.phonenumber = phonenumber ;
+this.email = email;
+this.id = id;
+this.pw = pw;
+}
+}
+
+pubilc static void main(String[] args) {
+ArrayList <User> users = new ArrayList<>();
+Scanner sc = new Scanner(System.in);
+
+boolean running = true;
+
+while(running) {
+
+System.out.println("\n===== 메뉴 =====");
+System.out.println("1. 회원가입");
+System.out.println("2. 아이디 찾기");
+System.out.println("3. 비밀번호 찾기");
+System.out.println("4. 회원정보 확인");
+System.out.println("5. 프로그램 종료");
+System.out.println("\n메뉴선택:");
+
+String input = sc.nextLine();
+
+switch(input) {
+
+case "1" : { 
+
+String name = redeName(sc ,"이름을 입력하세요:");
+String date = redeDate(sc , "생년월일을 입력하세요:");
+String sex = redeSex (sc , "성별을 입력하세요(남/여):");
+String phonenumber = redephoneNumbet(sc ,"전화번호를 입력하세요:", users );
+String email = redeEmail (sc, "이메일을 입력하세요:" , users );
+String id = redeId ( sc , "아이디를 입력하세요:" , users );
+String pw = ( sc , "비밀번호를 입력하세요:");
+
+users.add(new User(name , date , sex , phonenubmer , email , id , pw));
+System.out.println("회원가입이 완료되었습니다.");
+
+break;
+}
+case "2" : { 
+idFind(users);
+
+break;
+}                            
+
+case "3" : {
+pwFind(users);
+
+break;
+}
+
+case "4" : {
+userList(users);
+
+break;
+}
+
+case "5" : {
+System.out.println("프로그램을 종료합니다.");
+
+running = false;
+break;
+}
+defualt : ("잘못된 선택입니다. 1~5중에 골라주세요.");
+}
+}
+sc.close();
+}
+
+// 매소드 기능 부분
+
+
+//이름
+private static void redeName(Scanner sc , prompot ) {
+
+while(true) {
+System.out.println(prompot);
+String name = sc.nextLine().trim();
+
+if(name.isEmpty()) {
+System.out.println("이름을 입력해주세요.");
+continue;
+}
+if(!name.matches("[가-힣]+")) {
+System.out.println("이름에는 한글만 적을 수 있습니다.");
+continue;
+}
+}
+return name;
+}
+
+private static void redeDate(Scanner sc , prompot ) {
+
+while(true) {
+System.out.println(prompot);
+String date = sc.nextLine().trim();
+
+if(date.isEmpty()) {
+System.out.println("생년월일을 입력해주세요.");
+continue;
+}
+if(!date.matches("[0-9]+"=)) {
+System.out.println("생년월일은 숫자만 적을 수 있습니다.");
+continue;
+}
+}
+return date;
+}
+
+private static void redeSex(Scanner sc , prompot ) {
+
+while(true) {
+System.out.println(prompot);
+String sex = sc.nextLine().trim();
+
+if(sex.isEmpty()) {
+System.out.println("성별을 입력해주세요.");
+continue;
+}
+if(!sex.equals(남) && !sex.equals(여)) {
+System.out.println("(남/여)중에 골라주세요");
+continue;
+}
+}
+return sex;
+}
+private static void redePhonenumber(Scanner sc , prompot , ArrayList <User> users ) {
+
+while(true) {
+System.out.println(prompot);
+String phonenumber = sc.nextLine().trim();
+
+if(phonenumber.isEmpty()) {
+System.out.println("생년월일을 입력해주세요.");
+continue;
+}
+if(!phonenumber.matches("[0-9]+"=)) {
+System.out.println("생년월일은 숫자만 적을 수 있습니다.");
+continue;
+}
+}
+return phonenumber;
+}
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
