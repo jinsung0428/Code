@@ -109,7 +109,7 @@ continue;
 }
 return name;
 }
-
+//생년월일
 private static void redeDate(Scanner sc , prompot ) {
 
 while(true) {
@@ -127,7 +127,7 @@ continue;
 }
 return date;
 }
-
+//성별
 private static void redeSex(Scanner sc , prompot ) {
 
 while(true) {
@@ -145,6 +145,17 @@ continue;
 }
 return sex;
 }
+//전화번호 중복확인
+private static boolean existsPhonenumber(ArrayList<User> users, String phonenumber) {
+		    for (User u : users) {
+		        if (phonenumber.equals(u.phonenumber)) return true;
+		    }
+		    return false;
+		}
+
+
+
+//전화번호
 private static void redePhonenumber(Scanner sc , prompot , ArrayList <User> users ) {
 
 while(true) {
@@ -152,24 +163,109 @@ System.out.println(prompot);
 String phonenumber = sc.nextLine().trim();
 
 if(phonenumber.isEmpty()) {
-System.out.println("생년월일을 입력해주세요.");
+System.out.println("전화번호를 입력해주세요.");
 continue;
 }
-if(!phonenumber.matches("[0-9]+"=)) {
-System.out.println("생년월일은 숫자만 적을 수 있습니다.");
+if(!phonenumber.matches("[0-9]+")) {
+System.out.println("전화번호는 숫자만 적을 수 있습니다.");
+continue;
+}
+if(phonenumber.length() != 11) {
+System.out.println("전화번호는 11자리여야 합니다.(-제외)");
+continue; 
+}
+if(existsPhonenumber( users , phonenumber)) {
+System.out.println("이미 등록이 되어있는 전화번호 입니다.");
 continue;
 }
 }
 return phonenumber;
 }
+//이메일 중복확인
+private static boolean existsEmail(ArrayList<User> users, String email) {
+		    for (User u : users) {
+		        if (email.equals(u.email)) return true;
+		    }
+		    return false;
+		}
+// 이메일
+private static void redeEmail(Scanner sc , prompot , ArrayList <User> users ) {
 
+while(true) {
+System.out.println(prompot);
+String email = sc.nextLine().trim();
 
+if(email.isEmpty()) {
+System.out.println("이메일을 입력해주세요.");
+continue;
+}
+if(!email.matches("[a-zA-Z0-9@]+")) {
+System.out.println("이메일을 다시 확인해주세요.");
+continue;
+}
 
+if(existsEmail( users , email)) {
+System.out.println("이미 등록이 되어있는 이메일입니다.");
+continue;
+}
+}
+return email;
+}
+//아이디 중복 확인
+private static boolean existsId(ArrayList<User> users, String id) {
+		    for (User u : users) {
+		        if (id.equals(u.id)) return true;
+		    }
+		    return false;
+		}
+//아이디
+private static void redeId(Scanner sc , prompot , ArrayList <User> users ) {
 
+while(true) {
+System.out.println(prompot);
+String id = sc.nextLine().trim();
 
-  
+if(id.isEmpty()) {
+System.out.println("아이디를 입력해주세요.");
+continue;
+}
+if(!id.matches("[a-zA-Z0-9]+")) {
+System.out.println("아이디는 영문,숫자만 사용가능 합니다.");
+continue;
+}
+if(id.length() < 7 || id.length() > 17 ) {
+System.out.println("아이디는 8~16글자 사이여야 합니다") 
+continue;
+}
+if(existsEmail( users , id)) {
+System.out.println("이미 사용중인 아이디입니다.");
+continue;
+}
+}
+return id;
+}
+//비밀번호
+private static void redePw(Scanner sc , prompot ,  ) {
 
+while(true) {
+System.out.println(prompot);
+String pw = sc.nextLine().trim();
 
+if(pw.isEmpty()) {
+System.out.println("비밀번호를 입력해주세요.");
+continue;
+}
+if(!pw.matches("[a-zA-Z0-9!@]+")) {
+System.out.println("비밀번호는 영문,숫자,특수문자(!,@)만 사용가능 합니다.");
+continue;
+}
+if(id.length() < 7 || id.length() > 17 ) {
+System.out.println("비밀번호는 8~16글자 사이여야 합니다") 
+continue;
+}
+}
+return id;
+}
 
 
 
