@@ -268,25 +268,91 @@ return id;
 }
 
 // 아이디 찾기
+private static void idFind(ArrayList<User> users, Scanner sc) {
 
-private static void idFind( ArrayList <User> users , Scanner sc ) {
+    while (true) {
+        System.out.println("이름을 입력해주세요:");
+        String findname = sc.nextLine().trim();
 
-for( User u : usesrs ) {
-if(u.name(u.name))
+        System.out.println("생년월일을 입력해주세요:");
+        String finddate = sc.nextLine().trim();
 
+        System.out.println("성별을 입력해주세요:");
+        String findsex = sc.nextLine().trim();
 
+        System.out.println("전화번호를 입력해주세요:");
+        String findphone = sc.nextLine().trim();
 
+        System.out.println("이메일을 입력해주세요:");
+        String findemail = sc.nextLine().trim();
 
+        boolean found = false;
 
+        for (User n : users) {
+            if (n.name.equals(findname) &&
+                n.date.equals(finddate) &&
+                n.sex.equals(findsex) &&
+                n.phonenumber.equals(findphone) &&
+                n.email.equals(findemail)) {
 
+                System.out.println(n.name + "님의 아이디는 " + n.id + " 입니다.");
+                found = true;
+                break; // 찾았으니 반복 종료
+            }
+        }
 
+        if (!found) {
+            System.out.println("일치하는 정보가 없습니다.");
+        }
 
+    }
+}
 
+//비밀번호 찾기
 
+private static void pwFind(ArrayList<User> users, Scanner sc) {
 
+    while (true) {
+        System.out.println("이름을 입력해주세요:");
+        String findname = sc.nextLine().trim();
 
+        System.out.println("생년월일을 입력해주세요:");
+        String finddate = sc.nextLine().trim();
 
+        System.out.println("성별을 입력해주세요:");
+        String findsex = sc.nextLine().trim();
 
+        System.out.println("전화번호를 입력해주세요:");
+        String findphone = sc.nextLine().trim();
+
+        System.out.println("이메일을 입력해주세요:");
+        String findemail = sc.nextLine().trim();
+
+       System.out.println("아이디를 입력해주세요:")        
+       String findid = sc.nextLine().trim();
+
+boolean found = false;
+
+        for (User n : users) {
+            if (n.name.equals(findname) &&
+                n.date.equals(finddate) &&
+                n.sex.equals=(findsex) &&
+                n.phonenumber.equals(findphone) &&
+                n.email.equals(findemail) &&
+                n.id.equals(findid)) {
+
+                System.out.println(n.name + "님의 비빌번호는 " + n.pw + " 입니다.");
+                found = true;
+                break; // 찾았으니 반복 종료
+            }
+        }
+
+        if (!found) {
+            System.out.println("일치하는 정보가 없습니다.");
+        }
+
+    }
+}
 
 
 
