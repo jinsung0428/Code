@@ -45,12 +45,12 @@ switch(input) {
 
 case "1" : { 
 
-String name = redeName(sc ,"이름을 입력하세요:");
-String date = redeDate(sc , "생년월일을 입력하세요:");
-String sex = redeSex (sc , "성별을 입력하세요(남/여):");
-String phonenumber = redephoneNumbet(sc ,"전화번호를 입력하세요:", users );
-String email = redeEmail (sc, "이메일을 입력하세요:" , users );
-String id = redeId ( sc , "아이디를 입력하세요:" , users );
+String name = readName(sc ,"이름을 입력하세요:");
+String date = readDate(sc , "생년월일을 입력하세요:");
+String sex = readSex (sc , "성별을 입력하세요(남/여):");
+String phonenumber = readphoneNumbet(sc ,"전화번호를 입력하세요:", users );
+String email = readEmail (sc, "이메일을 입력하세요:" , users );
+String id = reaeId ( sc , "아이디를 입력하세요:" , users );
 String pw = ( sc , "비밀번호를 입력하세요:");
 
 users.add(new User(name , date , sex , phonenubmer , email , id , pw));
@@ -92,7 +92,7 @@ sc.close();
 
 
 //이름
-private static void redeName(Scanner sc , prompot ) {
+private static void readName(Scanner sc , prompot ) {
 
 while(true) {
 System.out.println(prompot);
@@ -110,7 +110,7 @@ continue;
 return name;
 }
 //생년월일
-private static void redeDate(Scanner sc , prompot ) {
+private static void readDate(Scanner sc , prompot ) {
 
 while(true) {
 System.out.println(prompot);
@@ -128,7 +128,7 @@ continue;
 return date;
 }
 //성별
-private static void redeSex(Scanner sc , prompot ) {
+private static void readSex(Scanner sc , prompot ) {
 
 while(true) {
 System.out.println(prompot);
@@ -156,7 +156,7 @@ private static boolean existsPhonenumber(ArrayList<User> users, String phonenumb
 
 
 //전화번호
-private static void redePhonenumber(Scanner sc , prompot , ArrayList <User> users ) {
+private static void readPhonenumber(Scanner sc , prompot , ArrayList <User> users ) {
 
 while(true) {
 System.out.println(prompot);
@@ -189,7 +189,7 @@ private static boolean existsEmail(ArrayList<User> users, String email) {
 		    return false;
 		}
 // 이메일
-private static void redeEmail(Scanner sc , prompot , ArrayList <User> users ) {
+private static void readEmail(Scanner sc , prompot , ArrayList <User> users ) {
 
 while(true) {
 System.out.println(prompot);
@@ -219,7 +219,7 @@ private static boolean existsId(ArrayList<User> users, String id) {
 		    return false;
 		}
 //아이디
-private static void redeId(Scanner sc , prompot , ArrayList <User> users ) {
+private static void readId(Scanner sc , prompot , ArrayList <User> users ) {
 
 while(true) {
 System.out.println(prompot);
@@ -245,7 +245,7 @@ continue;
 return id;
 }
 //비밀번호
-private static void redePw(Scanner sc , prompot ,  ) {
+private static void readPw(Scanner sc , prompot ,  ) {
 
 while(true) {
 System.out.println(prompot);
@@ -267,10 +267,12 @@ continue;
 return id;
 }
 
+// 아이디 찾기
 
+private static void idFind( ArrayList <User> users , Scanner sc ) {
 
-
-
+for( User u : usesrs ) {
+if(u.name(u.name))
 
 
 
