@@ -1,0 +1,139 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Qizz {
+    
+
+
+
+
+
+
+
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
+new ArrayList<Qizz> qizzs = new ArrayList<>();
+int osum = 0;
+int xsum = 0;
+while(true) {
+System.out.println("독일의 수도는 베를린이다.(O/X)") {
+String o = sc.nextLine().trim();
+if(o.isEmpty()) {
+System.out.println("정답을 입력해주세요");	
+return;
+}
+if(!o.equals("O") && !o.equals("X") {
+System.out.println("(O/X)중에 입력해주세요");
+return;
+}
+ if(o.equals("O") ) {
+System.out.println("정답입니다.");
+osum = 1 + osum;
+break;
+}
+if(o.equals("X")) {
+System.out.println("오답입니다.")
+xsum = 1 + xsum;
+break;
+}
+}
+while(true) {
+System.out.println("이집트의 수도는 카이로이다.(O/X)") {
+String e = sc.nextLine().trim();
+if(e.isEmpty()) {
+System.out.println("정답을 입력해주세요");	
+return;
+}
+if(!e.equals("O") && !e.equals("X") {
+System.out.println("(O/X)중에 입력해주세요");
+return;
+}
+ if(e.equals("O") ) {
+System.out.println("정답입니다.");
+osum = 1 + osum;
+break;
+}
+if(e.equals("X")) {
+System.out.println("오답입니다.")
+xsum = 1 + xsum;
+break;
+}
+}
+while(true) {
+System.out.println("네덜란드의 수도는 아약스이다.(O/X)") {
+String n = sc.nextLine().trim();
+if(n.isEmpty()) {
+System.out.println("정답을 입력해주세요");	
+return;
+}
+if(!n.equals("O") && !n.equals("X") {
+System.out.println("(O/X)중에 입력해주세요");
+return;
+}
+ if(n.equals("X") ) {
+System.out.println("정답입니다.");
+osum = 1 + osum;
+break;
+}
+if(n.equals("O")) {
+System.out.println("오답입니다.")
+xsum = 1 + xsum;
+break;
+}
+}
+while(true) {
+System.out.println("일본의 수도는 교토이다.(O/X)") {
+String i = sc.nextLine().trim();
+if(i.isEmpty()) {
+System.out.println("정답을 입력해주세요");	
+return;
+}
+if(!i.equals("O") && !i.equals("X") {
+System.out.println("(O/X)중에 입력해주세요");
+return;
+}
+ if(i.equals("X") ) {
+System.out.println("정답입니다.");
+osum = 1 + osum;
+break;
+}
+if(i.equals("O")) {
+System.out.println("오답입니다.")
+xsum = 1 + xsum;
+break;
+}
+}
+while(true) {
+System.out.println("룩셈부르크의 수도는 룩셈부르크이다.(O/X)") {
+String r = sc.nextLine().trim();
+if(r.isEmpty()) {
+System.out.println("정답을 입력해주세요");	
+return;
+}
+if(!r.equals("O") && !r.equals("X") {
+System.out.println("(O/X)중에 입력해주세요");
+return;
+}
+ if(r.equals("O") ) {
+System.out.println("정답입니다.");
+osum = 1 + osum;
+break;
+}
+if(r.equals("X")) {
+System.out.println("오답입니다.")
+xsum = 1 + xsum;
+break;
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
