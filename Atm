@@ -1,5 +1,4 @@
 import.java.util.*;
-
  
 public class Atm {
 
@@ -29,3 +28,7 @@ System.out.println("1.입금");
 System.out.println("2.출금");
 System.out.println("3.계좌이체");
 System.out.println("4.회원가입");
+
+string input = sc.nextLine().trim();
+
+switch.= {
