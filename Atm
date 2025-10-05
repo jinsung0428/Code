@@ -2,23 +2,30 @@ import.java.util.*;
 
  
 public class Atm {
+
+static class Atm {
 String name;
 String atmnumber;
 int money;
 String pw; 
 
-static class Atmm( String name , String atmnumber , int money , String pw) {
+ Atm ( String name , String atmnumber , int money , String pw) {
 this.name = name;
 this.atmnumber = atmnumber;
 this.money = money;
 this.pw = pw;
 }
-
-
-
-
-
-
-
+}
 
 public static void main(String[] args) {
+ArrayList<Atm> atms = new ArrayList<>();
+Scanner sc = new Scanner(System.in);
+
+boolean running = ture;
+
+while(runnig) {
+Systen.out.println("\n===== ATM기기 메뉴 =====");
+System.out.println("1.입금");
+System.out.println("2.출금");
+System.out.println("3.계좌이체");
+System.out.println("4.회원가입");
