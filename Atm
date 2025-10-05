@@ -31,4 +31,36 @@ System.out.println("4.회원가입");
 
 string input = sc.nextLine().trim();
 
-switch.= {
+switch(input) {
+case "1" : {
+System.out.println("임금하실 금액을 입력해주세요:");
+int sendmoney = sc.nxetInt().trim();
+sc.nextLine();
+printSend(atms);
+}
+case "2" : { 
+System.out.println("출금하실 금액을 입력해주세요:");
+int drawmoney = sc.nextInt().trim();
+sc.nextLine();
+printDraw(atms);
+}
+case "3" : {
+System.out.println("계좌이체 할 계좌번호를 입력해주세요:")
+String atmnumbet = sc.nextLine().trim();
+printAtmnumber(atms);
+}
+case "4" : { 
+System.out.println("이름을 입력하세요:");
+String name =  nextLine 
+
+
+
+
+
+
+
+
+
+
+
+
