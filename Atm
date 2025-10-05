@@ -1,0 +1,24 @@
+import.java.util.*;
+
+ 
+public class Atm {
+String name;
+String atmnumber;
+int money;
+String pw; 
+
+static class Atmm( String name , String atmnumber , int money , String pw) {
+this.name = name;
+this.atmnumber = atmnumber;
+this.money = money;
+this.pw = pw;
+}
+
+
+
+
+
+
+
+
+public static void main(String[] args) {
