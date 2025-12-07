@@ -60,3 +60,52 @@ public class Main {
         m.printStatus();
     }
 }
+
+
+
+import java.util.HashMap;
+
+public class CooldownManager {
+    public static void main(String[] args) {
+        HashMap<String, Integer> cd = new HashMap<>();
+
+        cd.put("Fireball", 0);
+        cd.put("Heal", 0);
+
+        useSkill(cd, "Fireball");  // 1턴
+        nextTurn(cd);
+
+        useSkill(cd, "Fireball");  // 2턴
+        useSkill(cd, "Heal");      // 2턴
+        nextTurn(cd);
+
+        useSkill(cd, "Fireball");  // 3턴
+
+        System.out.println("Fireball: " + cd.get("Fireball"));
+        System.out.println("Heal: " + cd.get("Heal"));
+    }
+
+    static void useSkill(HashMap<String, Integer> cd, String name) {
+        int current = cd.get(name);
+        if (current == 0) {
+            System.out.println(name + " 사용!");
+            if (name.equals("Fireball")) {
+                cd.put(name, 2);   // 쿨타임 2턴
+            } else if (name.equals("Heal")) {
+                cd.put(name, 1);   // 쿨타임 1턴
+            }
+        } else {
+            System.out.println(name + "은(는) 아직 " + current + "턴 남음");
+        }
+    }
+
+    static void nextTurn(HashMap<String, Integer> cd) {
+        for (String key : cd.keySet()) {
+            int v = cd.get(key);
+            if (v > 0) cd.put(key, v - 1);
+        }
+        System.out.println("=== 턴 종료 ===");
+    }
+}
+
+
