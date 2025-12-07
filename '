@@ -108,4 +108,42 @@ public class CooldownManager {
     }
 }
 
+abstract class Entity {
+    String name;
+    Entity(String name) { this.name = name; }
 
+    void update() {
+        System.out.println(name + " 기본 업데이트");
+    }
+}
+
+class NPC extends Entity {
+    NPC(String name) { super(name); }
+
+    @Override
+    void update() {
+        System.out.println(name + " 대화 가능 상태 체크");
+    }
+}
+
+class Chest extends Entity {
+    Chest(String name) { super(name); }
+
+    @Override
+    void update() {
+        System.out.println(name + " 열렸는지 체크");
+    }
+}
+
+public class GameLoop {
+    public static void main(String[] args) {
+        Entity e1 = new NPC("상인");
+        Entity e2 = new Chest("보물상자");
+
+        Entity[] list = { e1, e2 };
+
+        for (Entity e : list) {
+            e.update();
+        }
+    }
+}
