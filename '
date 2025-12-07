@@ -1,0 +1,62 @@
+interface Skill {
+    void use(Character caster, Character target);
+}
+
+class Character {
+    String name;
+    int hp;
+
+    Character(String name, int hp) {
+        this.name = name;
+        this.hp = hp;
+    }
+
+    void printStatus() {
+        System.out.println(name + " HP: " + hp);
+    }
+}
+
+class Player extends Character {
+    Player(String name) {
+        super(name, 100);
+    }
+}
+
+class Monster extends Character {
+    Monster(String name) {
+        super(name, 80);
+    }
+}
+
+class Fireball implements Skill {
+    @Override
+    public void use(Character caster, Character target) {
+        int damage = 20;
+        target.hp -= damage;
+        System.out.println(caster.name + "의 파이어볼! " + target.name + "에게 " + damage + " 데미지");
+    }
+}
+
+class Heal implements Skill {
+    @Override
+    public void use(Character caster, Character target) {
+        int heal = 15;
+        target.hp += heal;
+        System.out.println(caster.name + "의 힐! " + target.name + " HP +" + heal);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Player p = new Player("용사");
+        Monster m = new Monster("슬라임");
+
+        Skill s1 = new Fireball();
+        Skill s2 = new Heal();
+
+        s1.use(p, m);
+        s2.use(p, p);
+        p.printStatus();
+        m.printStatus();
+    }
+}
