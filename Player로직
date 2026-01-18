@@ -1,0 +1,9 @@
+Rigidbody2D rigid ;
+
+void Awake() { 
+rigid = Getcomponent<Rigidbody2D>(); 
+}
+
+void PixedUpdate() {
+if(Input.GetButton("Horizontal") {
+   rigid.AddForce(new vector2()
