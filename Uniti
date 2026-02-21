@@ -9,3 +9,6 @@ Using unityEngine.InputSystem;
 void onMove(InputValue value) {
 inputVec = value.Get<Vector2>();  
 }
+
+//2. 공격구현 
+Swich -case 로 무기를 구분지어 각 무기에 맞는 공격 모션 호출	
