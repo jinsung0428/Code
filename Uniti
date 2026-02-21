@@ -1,2 +1,11 @@
-Uniti
-aa
+//Player Move
+
+
+Using unityEngine.InputSystem;
+
+
+//1. 플레이어 조이스틱 이동
+
+void onMove(InputValue value) {
+inputVec = value.Get<Vector2>();  
+}
