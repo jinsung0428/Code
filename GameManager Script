@@ -1,0 +1,3 @@
+• GameManager: 씬 전환(Stage), 점수, 게임 오버/승리 관리.
+• AudioManager: 효과음(공격, 넉백 사운드)과 배경음 재생.
+• AugmentManager: 선택된 증강 카드들이 현재 플레이어 스태츠에 잘 적용되고 있는지 관리.
