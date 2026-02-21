@@ -3,12 +3,17 @@
 • PlayerHealth.cs: 현재 체력 관리, 데미지 입었을 때 화면 깜빡임 연출.
 
 
-Rigidbody2D rigid ;
+/Player Move
 
-void Awake() { 
-rigid = Getcomponent<Rigidbody2D>(); 
+
+Using unityEngine.InputSystem;
+
+
+//1. 플레이어 조이스틱 이동
+
+void onMove(InputValue value) {
+inputVec = value.Get<Vector2>();  
 }
 
-void PixedUpdate() {
-if(Input.GetButton("Horizontal") {
-   rigid.AddForce(new vector2()
+//2. 공격구현 
+Swich -case 로 무기를 구분지어 각 무기에 맞는 공격 모션 호출	
