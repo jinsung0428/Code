@@ -1,0 +1,14 @@
+• PlayerController.cs: 이동(점프 포함), 사망 판정. (물리적인 몸뚱이 관리)
+• PlayerAttack.cs: 공격 버튼 클릭 감지, 현재 든 무기 종류 확인 및 발사.
+• PlayerHealth.cs: 현재 체력 관리, 데미지 입었을 때 화면 깜빡임 연출.
+
+
+Rigidbody2D rigid ;
+
+void Awake() { 
+rigid = Getcomponent<Rigidbody2D>(); 
+}
+
+void PixedUpdate() {
+if(Input.GetButton("Horizontal") {
+   rigid.AddForce(new vector2()
