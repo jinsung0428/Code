@@ -6,8 +6,8 @@ Using unityEngine.InputSystem;
 
 
 public float JumpPawer = 10 ;//임시값
-Private Rigidbody2D rigid;
-
+private Rigidbody2D rigid;
+private spriteRenderer ; 
 
 
 
@@ -16,8 +16,20 @@ Private Rigidbody2D rigid;
 void Awake() {
 
 rigid = GetComponent<Rigidbody2D>();
-
+renderer = GetComponent<spriteRenderer>();
 }
+
+void LastUadate() {
+
+ if(inputVec.x !=0) {
+spriter.filpx = inputVec.x < 0;
+
+
+
+
+
+
+
 
 
 
@@ -32,11 +44,48 @@ inputVec = value.Get<Vector2>();
  
 Swich(Id) {
 
- case : 0  
+ case WeaponType.Sword:  
+// SwordAttack() 
+// break;
 
+ case WeaponType.Bow:
+// BowAttack()
+// break;
+
+ case WeaponType.Shotgun:
+// ShotgunAttack() 
+// break;
 
 /3. 점프구현
 
 void Jump () {
  rigid.velocity = new vector2 ( rigid.velocity.x , JumpPawer);
 }
+
+
+
+// 함수부분
+
+void SwordAttack() {
+// 0 애니매이션 호출
+// 넉백함수 호출
+// 근거리 판정 로직
+}
+
+void BowAttack() {
+// 1 애니메이션 호출
+// 화살 발사 함수 호출
+
+void ShotgunAttack() {
+// 2 애니메이션 호출 
+// 총알 발사 함수 호출
+
+
+
+
+
+
+
+
+
+
