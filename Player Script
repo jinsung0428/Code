@@ -2,11 +2,23 @@
 • PlayerAttack.cs: 공격 버튼 클릭 감지, 현재 든 무기 종류 확인 및 발사.
 • PlayerHealth.cs: 현재 체력 관리, 데미지 입었을 때 화면 깜빡임 연출.
 
-
-/Player Move
-
-
 Using unityEngine.InputSystem;
+
+
+public float JumpPawer = 10 ;//임시값
+Private Rigidbody2D rigid;
+
+
+
+
+
+
+void Awake() {
+
+rigid = GetComponent<Rigidbody2D>();
+
+}
+
 
 
 //1. 플레이어 조이스틱 이동
@@ -15,5 +27,16 @@ void onMove(InputValue value) {
 inputVec = value.Get<Vector2>();  
 }
 
-//2. 공격구현 
-Swich -case 로 무기를 구분지어 각 무기에 맞는 공격 모션 호출	
+//2. 공격구현 // 0 = 검 , 1 = 활 , 2 = 샷건
+ void Attack (Weapon Id ) {
+ 
+Swich(Id) {
+
+ case : 0  
+
+
+/3. 점프구현
+
+void Jump () {
+ rigid.velocity = new vector2 ( rigid.velocity.x , JumpPawer);
+}
